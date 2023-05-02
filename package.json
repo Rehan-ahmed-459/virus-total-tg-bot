@@ -1,0 +1,19 @@
+{
+  "name": "tgbot",
+  "version": "1.0.0",
+  "description": "Virus total Telegram Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rehan-ahmed-459/virus-total-tg-bot.git"
+  },
+  "author": "Rehan Ahmed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rehan-ahmed-459/virus-total-tg-bot/issues"
+  },
+  "homepage": "https://github.com/Rehan-ahmed-459/virus-total-tg-bot#readme"
+}
