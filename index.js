@@ -70,25 +70,34 @@ bot.command('scan', ctx => {
   
         if (analysisResponse.data.data.attributes.status === 'completed') {
           clearInterval(checkFile);
-  
+          // console.log(analysisResponse.data.data.attributes.results);
           const stats = analysisResponse.data.data.attributes.stats;
-          const harmfulEngines = stats.harmful || 0;
           const harmlessEngines = stats.harmless || 0;
+          const harmfulEngines = stats.harmful || 0;
           const undetectedEngines = stats.undetected || 0;
-          const totalEngines = harmfulEngines + harmlessEngines + undetectedEngines;
-  
-          let result = 'No threats detected!';
-          if (harmfulEngines > 0) {
-             result = `⚠️ WARNING! This file is malicious according to VirusTotal.\n\n` +
-                     `Detected by ${analysisResponse.data.data.attributes.stats.malicious} out of ${analysisResponse.data.data.attributes.stats.undetected} engines.\n\n` +
-                    `Malicious engines: ${maliciousEngines.join(', ')}`;
-                    ctx.reply(result);
-          } else if (undetectedEngines > 0) {
-            result = `✅ This file is safe according to VirusTotal.\n\n` +
-                     `Detected by ${analysisResponse.data.data.attributes.stats.harmless} out of ${analysisResponse.data.data.attributes.stats.undetected} engines.`;
-                     ctx.reply(result);
-          }
+          const totalEngines = harmfulEngines+ harmlessEngines + undetectedEngines;
           
+          let results = 'No threats detected!';
+          let  firstKeys = Object.values(analysisResponse.data.data.attributes.results).map(result => {
+
+          
+           let r=[result.engine_name]
+           console.log(r)
+           
+        
+          
+          if (harmfulEngines > 0) {
+            results = `⚠️ WARNING! This file is malicious according to VirusTotal.\n\n` +
+            `Detected by ${analysisResponse.data.data.attributes.stats.malicious} out of ${analysisResponse.data.data.attributes.stats.undetected} engines.\n\n` +
+            `Malicious engines: ${ result.engine_name .join(', ')}`;
+            // ctx.reply(results);
+          } else if (undetectedEngines > 0) {
+            results = `✅ This file is safe according to VirusTotal.\n\n` +
+            `Detected by ${analysisResponse.data.data.attributes.stats.harmless} out of ${analysisResponse.data.data.attributes.stats.undetected} engines.\n\n Engines: ✅ ${result.engine_name}`;
+          
+          }
+         } );
+         ctx.reply(results);
           
         }
       } catch (error) {
@@ -97,7 +106,7 @@ bot.command('scan', ctx => {
     }, 5000);
   
     ctx.reply(
-      `Your File is Beign scanned.....🕵️‍♂️🕤`
+      `Your File is Being scanned.....🕵️‍♂️🕤`
     );
   });
 
